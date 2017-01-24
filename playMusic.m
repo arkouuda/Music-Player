@@ -1,14 +1,14 @@
 function playMusic(filename)
-    [freq,tempo,length] = readMusic;
+    [freq,tempo,lengthM] = readMusic;
     period = 60/tempo;
     t = 0:1/8192:period;
-    for i = 1:length
+    for i = 1:lengthM
         wave = 2*sin(2*pi*freq(i)*t);
         sound(wave);
         pause(period);
     end
     
-    function [freq,tempo,length] = readMusic
+    function [freq,tempo,lengthM] = readMusic
         fID = fopen(filename,'r');
         data = fread(fID,4);
         tempo = 100*data(1) + 10*data(2) + data(3) - 5328 ; 
@@ -24,13 +24,13 @@ function playMusic(filename)
         data = fread(fID,2);
         octave = data(1) - 48;
         data = fread(fID,4);
-        length = 100*data(1) + 10*data(2) + data(3) - 5328 ;
+        lengthM = 100*data(1) + 10*data(2) + data(3) - 5328 ;
         data = fread(fID,4);
         lines = 10*data(1) + data(2) - 528;
-        staff = -100*ones(lines,length);
+        staff = -100*ones(lines,lengthM);
         for j = 1:lines
-            data = zeros(1,length);
-            for k = 1:length
+            data = zeros(1,lengthM);
+            for k = 1:lengthM
                 data(k) = fread(fID,1,'*char');
                 switch data(k)
                     case 'o'
