@@ -9,8 +9,8 @@ function playMusic(filename)
         y(i) = wave(i);
     end
     y(y < -1) = -1; y(y > 1) = 1;
-    fnl = length(filename) - 4;
-    filename = strcat(filename(1:fnl),'.wav');
+    fnl = length(filename) - 3;
+    filename = strcat(filename(1:fnl),'wav');
     file = strcat(pwd,'\',filename);
     audiowrite(filename,y,8192);
     winopen(file);
